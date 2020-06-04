@@ -164,18 +164,18 @@ namespace Practica
             {
                 label8.Visible = true;
             }
-        }
-
+        } 
+         
         private void TextBox4_TextChanged(object sender, EventArgs e)
-        {
+        { 
             if (textBox4.Text != "")
             {
-                label10.Visible = false;
+                label10.Visible =  false; 
             }
             else
             {
                 label10.Visible = true;
-            }
+            } 
         }
 
         private void TextBox5_TextChanged(object sender, EventArgs e)
