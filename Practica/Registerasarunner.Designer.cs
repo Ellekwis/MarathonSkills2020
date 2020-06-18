@@ -307,8 +307,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Male",
-            "Female",
-            "Свой"});
+            "Female"});
             this.comboBox1.Location = new System.Drawing.Point(192, 298);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(156, 21);
@@ -407,14 +406,11 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Россия",
-            "Румыния",
-            "Нигерия"});
             this.comboBox2.Location = new System.Drawing.Point(189, 351);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(159, 21);
             this.comboBox2.TabIndex = 38;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged_1);
             // 
             // button2
             // 

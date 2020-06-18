@@ -13,6 +13,18 @@ namespace Practica
 
     public partial class Form9 : Form
     {
+        public int runnerid;
+        public int runnerid1
+        {
+            get
+            {
+                return runnerid;
+            }
+            set
+            {
+                runnerid = value;
+            }
+        }
         static DateTime GetStartTime()
         {
             SqlConnection scc = new SqlConnection();
@@ -23,8 +35,12 @@ namespace Practica
         DateTime voteTime = GetStartTime();
         public Form9()
         {
+            SqlConnection scc = new SqlConnection();
             InitializeComponent();
             timer1.Start();
+            //Form9 f9 = new Form9();
+            MyRaceResults mrs = new MyRaceResults();
+            runnerid= mrs.runnerid;
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -45,6 +61,7 @@ namespace Practica
 
         private void Button6_Click(object sender, EventArgs e)
         {
+           
             ActiveForm.Hide();
            MyRaceResults reg = new MyRaceResults();
             reg.ShowDialog();

@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Practica
 {
     public partial class Login : Form
     {
+       public int runnerid;
         static DateTime GetStartTime()
         {
             SqlConnection scc = new SqlConnection();
@@ -20,6 +22,7 @@ namespace Practica
             return Convert.ToDateTime(date);
         }
         DateTime voteTime = GetStartTime();
+
         public Login()
         {
             InitializeComponent();
@@ -57,8 +60,16 @@ namespace Practica
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
-            
+            string connStr = "server=localhost;user=root;database=ketrar;password=";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+            string sql = "SELECT RunnerId FROM runner WHERE Email ='" + textBox1.Text + "'";
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            string runid = command.ExecuteScalar().ToString() ;
+            runnerid =Convert.ToInt32(runid);
+           // conn.Close();
+            Form9 f9 = new Form9();
+            runnerid = f9.runnerid1;
             SqlConnection scc = new SqlConnection();
             Login l = this;
             scc.Login(textBox1.Text, textBox2.Text, l);

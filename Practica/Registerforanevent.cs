@@ -7,11 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Practica
 {
     public partial class Form5 : Form
     {
+        public int runnerid;
+        public int id1
+        {
+            get
+            {
+                return runnerid;
+            }
+            set
+            {
+                runnerid = value;
+            }
+        }
+           
+        
+            
         static DateTime GetStartTime()
         {
             SqlConnection scc = new SqlConnection();
@@ -20,6 +36,7 @@ namespace Practica
             return Convert.ToDateTime(date);
         }
         DateTime voteTime = GetStartTime();
+        
         public Form5()
         {
             InitializeComponent();
@@ -75,13 +92,14 @@ namespace Practica
                 label16.Text = Convert.ToString(b1 + b2 + b3 + a1 + a2 + a3);
             }
         }
-
+        string racekit;
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked ==true)
             {
                 b1 = 0;
                 label16.Text = Convert.ToString(b1 + b2 + b3 + a1+a2+a3);
+                racekit = "A";
             }
             else
             {
@@ -96,10 +114,11 @@ namespace Practica
             {
                 b2 = 20;
                 label16.Text = Convert.ToString(b1 + b2 + b3 + a1 + a2 + a3);
+                racekit = "B";
             }
             else
             {
-                b2 = 20;
+                b2 = 0;
                 label16.Text = "0";
             }
         }
@@ -110,6 +129,7 @@ namespace Practica
             {
                 b3 = 45;
                 label16.Text = Convert.ToString(b1 + b2 + b3 + a1 + a2 + a3);
+                racekit = "C";
             }
             else
             {
@@ -117,9 +137,10 @@ namespace Practica
                 label16.Text = "0";
             }
         }
-
         private void Button2_Click(object sender, EventArgs e)
         {
+            SqlConnection scc = new SqlConnection();
+            scc.Regevent(DateTime.Now.ToString(), racekit, label16.Text, textBox1.Text, comboBox1.Text,id1);
             ActiveForm.Hide();
             RegistrationConfirmation reg = new RegistrationConfirmation();
             reg.ShowDialog();
@@ -154,6 +175,29 @@ namespace Practica
         {
             TimeSpan totalTime = voteTime - DateTime.Now;
             lblTime.Text = totalTime.Days + " дней " + totalTime.Hours + " часов и " + totalTime.Minutes + " минут до старта марафона!";
+        }
+
+        private void Form5_Load(object sender, EventArgs e)
+        {
+            string connStr = "Server=localhost;user=root;database=ketrar;password=";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            conn.Open();
+            string sql = "SELECT CharityName FROM charity";
+
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string item = reader[0].ToString();
+                comboBox1.Items.Add(item);
+            }
+            reader.Close();
+            conn.Close();
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

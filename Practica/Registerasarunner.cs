@@ -13,18 +13,23 @@ namespace Practica
 {
     public partial class Form4 : Form
     {
+         int runnerid;
         static DateTime GetStartTime()
         {
             SqlConnection scc = new SqlConnection();
             string date = scc.Connection();
 
             return Convert.ToDateTime(date);
+            
         }
         DateTime voteTime = GetStartTime();
+        // int runnerid;
         public Form4()
         {
             InitializeComponent();
             timer1.Start();
+            Form9 f9 = new Form9();
+            f9.runnerid = runnerid;
         }
         string cb2;
         string cb1;
@@ -46,35 +51,25 @@ namespace Practica
             conn.Close();
 
             button2.Enabled = false;
-            /////////////////////////////////////////////////////
-            /*
-            string connStr1 = "Server=localhost;user=root;database=ketrar;password=";
-            MySqlConnection conn1 = new MySqlConnection(connStr1);
-            conn.Open();
-            string sql1 = " SELECT CountryName FROM country";
-
-            MySqlCommand command1 = new MySqlCommand(sql1, conn1);
-            MySqlDataReader reader1 = command1.ExecuteReader();
-            while (reader1.Read())
-            {
-                string item1= reader1[0].ToString();
-                comboBox1.Items.Add(item1);
-            }
-            reader1.Close();
-            conn1.Close();
-            */
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             SqlConnection scc = new SqlConnection();
-            // Form4 f4 = this;
             string date =dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:ss");
             scc.RegRunner(textBox1.Text,textBox4.Text,textBox5.Text,textBox2.Text,comboBox1.Text,date,comboBox2.Text);
+
+            EditRunnerProfile erp = new EditRunnerProfile();
+            erp.emai = textBox1.Text;
+
+           int id = scc.runnerid(textBox1.Text);
+            runnerid = id;
             
-            ActiveForm.Hide();
-            Form5 reg = new Form5();
-            reg.ShowDialog();
+            Form5 f = new Form5();
+            f.id1 = runnerid;
+            f.runnerid = id;
+        ActiveForm.Hide();
+            f.ShowDialog();
             Close();
         }
 
@@ -132,7 +127,6 @@ namespace Practica
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
-           // passCheck(textBox2.Text);
             
             if (textBox2.Text != "")
             {
@@ -220,6 +214,11 @@ namespace Practica
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb1 = Convert.ToString(comboBox1.SelectedItem);
+        }
+
+        private void ComboBox2_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
     }

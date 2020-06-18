@@ -57,5 +57,10 @@ namespace Practica
             TimeSpan totalTime = voteTime - DateTime.Now;
             lblTime.Text = totalTime.Days + " дней " + totalTime.Hours + " часов и " + totalTime.Minutes + " минут до старта марафона!";
         }
+
+        private void RegistrationConfirmation_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

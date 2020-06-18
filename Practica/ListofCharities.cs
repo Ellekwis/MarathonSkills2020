@@ -14,12 +14,21 @@ namespace Practica
 {
     public partial class ListofCharities : Form
     {
+        static DateTime GetStartTime()
+        {
+            SqlConnection scc = new SqlConnection();
+            string date = scc.Connection();
+
+            return Convert.ToDateTime(date);
+        }
+        DateTime voteTime = GetStartTime();
         public ListofCharities()
         {
             InitializeComponent();
             SqlConnection scc = new SqlConnection();
             ListofCharities loc = this;
             scc.ListOfCharReader(loc);
+            timer1.Start();
         }
         public void imgAdd(string str, string about)
         {
@@ -85,5 +94,11 @@ namespace Practica
             Close();
         }
 
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+
+            TimeSpan totalTime = voteTime - DateTime.Now;
+            lblTime.Text = totalTime.Days + " дней " + totalTime.Hours + " часов и " + totalTime.Minutes + " минут до старта марафона!";
+        }
     }
 }

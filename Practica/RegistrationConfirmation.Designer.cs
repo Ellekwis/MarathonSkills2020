@@ -156,6 +156,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "RegistrationConfirmation";
             this.Text = "Form8";
+            this.Load += new System.EventHandler(this.RegistrationConfirmation_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
